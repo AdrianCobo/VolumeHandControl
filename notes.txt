@@ -1,7 +1,16 @@
 set up:
-pip install opencv-python
-sudo pip install mediapipe
-sudo pip install pycaw # volume control library: https://github.com/AndreMiras/pycaw
+
+linux:
+    pip install opencv-python
+    sudo pip install mediapipe
+    sudo pip install pycaw # volume control library: https://github.com/AndreMiras/pycaw
+
+windows:
+
+    python3 -m pip install opencv-python
+    python3 -m pip install mediapipe
+    python3 -m pip install comtypes
+    python3 -m pip install pycaw
 
 run program:
 python3 <program-name>

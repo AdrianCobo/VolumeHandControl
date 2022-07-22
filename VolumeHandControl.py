@@ -15,9 +15,13 @@ volume = cast(interface, POINTER(IAudioEndpointVolume))
 
 # volume.GetMute()
 # volume.GetMasterVolumeLevel()
-volume.GetVolumeRange()
-# volume.SetMasterVolumeLevel(-20.0, None)
-
+#print(volume.GetVolumeRange()) # (-65.25, 0.0, 0.03125) in our case. 0.0 = max, -65.25 = min
+volRange = volume.GetVolumeRange()
+minVol = volRange[0]
+maxVol = volRange[1]
+vol = 0
+volBar = 400 # minimum hight on pixels
+volPer = 0
 #################################################################
 wCam, hCam = 640, 480
 #################################################################
@@ -50,11 +54,22 @@ while True:
         cv2.circle(img, (cx, cy), 15, (255, 0, 255), cv2.FILLED)
 
         length = math.hypot(x2-x1, y2-y1) # distance between the fingerrs
-        print(length)
+        # print(length) # handrange observed was 50-250
+        # Volume Range -65 to 0
+        vol = np.interp(length, [50,250], [minVol,maxVol])
+        volBar = np.interp(length, [50,250], [400,150]) # high of the volume bar of the image in pixels
+        volPer = np.interp(length, [50,250], [0,100])
+        print(vol)
+        volume.SetMasterVolumeLevel(vol, None)
 
         if length < 50:
             cv2.circle(img, (cx, cy), 15, (0, 255, 0), cv2.FILLED)
 
+
+    cv2.rectangle(img, (50,150), (85,400), (0,255,0), 3)
+    cv2.rectangle(img, (50,int(volBar)), (85,400), (0,255,0), cv2.FILLED)
+    cv2.putText(img, f'{int(volPer)} %', (40, 450), cv2.FONT_HERSHEY_PLAIN,
+                3, (0, 255, 0, 3))
 
     cTime = time.time()
     fps = 1/(cTime-pTime)
