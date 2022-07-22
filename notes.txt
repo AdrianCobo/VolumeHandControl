@@ -1,0 +1,10 @@
+set up:
+pip install opencv-python
+sudo pip install mediapipe
+sudo pip install pycaw # volume control library: https://github.com/AndreMiras/pycaw
+
+run program:
+python3 <program-name>
+
+run module:
+python3 -m HandTrackingModule
