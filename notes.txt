@@ -6,14 +6,14 @@ linux:
     sudo pip install pycaw # volume control library: https://github.com/AndreMiras/pycaw
 
 windows:
-
     python3 -m pip install opencv-python
     python3 -m pip install mediapipe
     python3 -m pip install comtypes
     python3 -m pip install pycaw
 
 run program:
-python3 <program-name>
+python3  python3 VolumeHandControlLinux.py # for linux
+python3  python3 VolumeHandControlWindows.py # for windows
 
 run module:
 python3 -m HandTrackingModule

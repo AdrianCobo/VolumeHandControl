@@ -1,3 +1,3 @@
 # VolumeHandControl
 
-    ##Only for windows because it use pycaw
+    ##Work for linux and windos
